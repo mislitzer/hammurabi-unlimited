@@ -2,7 +2,6 @@ import random
 
 class City:
 
-
     def __init__(self):
         self.__population = 100
         self.__acres = 1000
