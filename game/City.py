@@ -65,6 +65,7 @@ class City:
         """
             Wird aufgerufen wenn die Eingabe bestätigt wird
         """
+        
         self.ask_to_buy_or_sell_land()
 
     def calculatePopulation(self, value):
