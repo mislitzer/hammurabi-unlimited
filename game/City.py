@@ -1,3 +1,5 @@
+from random import random
+
 class City:
 
     def __init__(self):
@@ -62,34 +64,33 @@ class City:
     def process(self):
         """
             Wird aufgerufen wenn die Eingabe bestätigt wird
-        :return:
         """
         self.ask_to_buy_or_sell_land()
 
     def calculatePopulation(self, value):
         """
             Wird aufgerufen, wenn die Population verändert wird
-        :return:
         """
+        self.population += value
 
     def calculateStore(self, value):
         """
             Wird aufgerufen, wenn die Scheffelmenge verändert wird
-        :return:
         """
+        self.store += value
 
     def disease(self):
         """
             Wird aufgerufen in der process() und berechnet Wahrscheinlichkeit einer
             Plage oder Seuche
-        :return:
         """
+
+
 
     def rats(self):
         """
             Wird in der process() aufgerufen und berechnet die Menge an Scheffeln,
             welche die Ratten pro Jahr fressen
-        :return:
         """
 
     def immigration(self):
