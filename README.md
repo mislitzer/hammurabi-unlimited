@@ -26,3 +26,4 @@ By Tobias Heiss, Iacob Cosmin, Franz Innerbichler & Martin Islitzer
 ## Sprint 4
 ### Fotodocumentation
 ![Sprint 4 - Start](./sprintfiles/sprint_4/Sprint4-Start.jpg "Sprint 4 - Start")
+![Sprint 4 - End](./sprintfiles/sprint_4/Sprint4-End.jpg "Sprint 4 - End")
