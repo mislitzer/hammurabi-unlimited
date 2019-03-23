@@ -33,6 +33,10 @@ class City:
             Wird aufgerufen in der process() und berechnet Wahrscheinlichkeit einer
             Plage oder Seuche
         """
+        disease = random.randint(1, 10)
+        if(disease == 10):
+            deaths = random.randint(-1,-(self.population/2))
+            self.calculatePopulation(deaths)
 
 
 
