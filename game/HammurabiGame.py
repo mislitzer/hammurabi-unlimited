@@ -18,19 +18,18 @@ class HammurabiGame:
         self.tk.title(GUICONSTANTS.GAME_TITLE)
 
     def trigger_play(self):
-        print("play triggered")
-        # self.city.process()
-        # self.fill_view_output()
+        self.city.buy_or_sell = self.view.acre_amount_slider.get()
+        self.city.feed = self.view.feed_people_slider.get()
+        self.city.plant = self.view.store_slider.get()
+        self.city.process()
+        
+        self.fill_view_output()
 
     def run(self):
         """
             Hauptmethode, welche beim Spielstart ausgeführt wird und bis Spielende durchläuft
 
         """
-        self.city.start()
-
-        while True:
-            self.city.process()
 
         self.tk.deiconify()
         self.tk.mainloop()

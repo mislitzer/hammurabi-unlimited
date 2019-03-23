@@ -11,6 +11,11 @@ class City:
         self.__year = 1
         self.__starve = 0
         self.__output = []
+        self.__gameOver = False
+
+        self.__buy_or_sell = 0
+        self.__feed = 0
+        self.__plant = 0
 
     @property
     def population(self):
@@ -76,6 +81,38 @@ class City:
     def output(self, value):
         self.__output = value
 
+    @property
+    def gameOver(self):
+        return self.__gameOver
+
+    @gameOver.setter
+    def gameOver(self, value):
+        self.__gameOver = value
+
+    @property
+    def buy_or_sell(self):
+        return self.__buy_or_sell
+
+    @buy_or_sell.setter
+    def buy_or_sell(self, value):
+        self.__buy_or_sell = value
+
+    @property
+    def feed(self):
+        return self.__feed
+
+    @feed.setter
+    def feed(self, value):
+        self.__feed = value
+
+    @property
+    def plant(self):
+        return self.__plant
+
+    @plant.setter
+    def plant(self, value):
+        self.__plant = value
+
     def inkrementOutput(self, value):
         self.output.append(value)
 
@@ -86,44 +123,23 @@ class City:
         for i in self.output:
             print(i)
 
-    def printValues(self):
-        print("Year: " + str(self.year))
-        print("population: " + str(self.population))
-        print("acres: " + str(self.acres))
-        print("store: " + str(self.store))
-        print("bushels per acre:" + str(self.bushels_per_acre))
-        print("tradeValue: " + str(self.trade_value))
-
-    def start(self):
-        # start initial round
-        self.printValues()
-        buyOrSell = self.ask_to_buy_or_sell_land()
-        feed = self.ask_to_feed_people()
-        plant = self.ask_to_plant_bushel()
-        self.peopleFeed(feed)
-        self.harvest(plant)
-        self.calculateAcres(int(buyOrSell))
-        self.rats()
-        self.disease()
-        self.year += 1
-
-
     def process(self):
         """
             Wird aufgerufen wenn die Eingabe bestätigt wird
         """
         self.tradeValue()
-        self.printValues()
-        self.printOutput()
-        buyOrSell = self.ask_to_buy_or_sell_land()
-        feed = self.ask_to_feed_people()
-        plant = self.ask_to_plant_bushel()
+
+        buy_or_sell = self.buy_or_sell
+        feed = self.feed
+        plant = self.plant
+
+        self.resetOutput()
         self.peopleFeed(feed)
         self.harvest(plant)
-        self.calculateAcres(int(buyOrSell))
-        self.resetOutput()
+        self.calculateAcres(int(buy_or_sell))
         self.rats()
         self.disease()
+        self.immigration()
         self.year += 1
         self.calc_bushels_per_acre(feed)
 
@@ -188,7 +204,8 @@ class City:
         if(self.__starve == 0):
             immigration = random.randint(1, ((self.population)/5))
             print(immigration)
-            self.calculatePopulation(immigration)
+            self.calculatePopulation(int(immigration))
+            self.inkrementOutput(str(immigration) + " People came to the city")
 
     def harvest(self, plant):
         self.calculateStore(plant*self.calc_bushels_per_acre())
@@ -199,24 +216,27 @@ class City:
             if(int(foodPerPerson) == 19):
                 self.starve = random.randint(1, int(self.population)/5)
                 self.inkrementOutput("People starved: " + str(self.starve))
+                self.gameIsOver()
                 self.calculatePopulation(-int(self.starve))
             elif(int(foodPerPerson) ==18):
                 self.starve = random.randint(1, (int(self.population)/10)*3)
                 self.inkrementOutput("People starved: " + str(self.starve))
+                self.gameIsOver()
                 self.calculatePopulation(-int(self.starve))
             elif(int(foodPerPerson) ==17):
                 self.starve = random.randint(1, (int(self.population) / 10)*6)
                 self.inkrementOutput("People starved: " + str(self.starve))
+                self.gameIsOver()
                 self.calculatePopulation(-int(self.starve))
 
             elif(int(foodPerPerson) <=16):
                 self.starve = self.population
                 self.inkrementOutput("People starved: " + str(self.starve))
+                self.gameIsOver()
                 self.calculatePopulation(-int(self.starve))
 
         elif(foodPerPerson > 20):
             return
-
 
     def ask_to_buy_or_sell_land(self):
         """ Ask user how many bushels to spend buying land. """
@@ -238,3 +258,10 @@ class City:
         storeChange = int(value)
         self.calculateStore(-storeChange)
         return value
+
+    def gameIsOver(self):
+        if(self.starve >= int((self.population/100)*45)):
+            print()
+            print("Game Over! ")
+            print(str(self.starve) + " People starved!!!")
+            self.gameOver = True
