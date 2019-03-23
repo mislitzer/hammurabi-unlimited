@@ -3,6 +3,7 @@ import City as city
 class HammurabiGame:
 
     city = city.City()
+    city.start()
 
 
     def main(self):
