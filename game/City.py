@@ -1,17 +1,16 @@
-from random import random
+import random
 
 class City:
 
+
     def __init__(self):
-        self.__population = 0
-        self.__acres = 0
+        self.__population = 100
+        self.__acres = 1000
         self.__trade_value = 0
         self.__bushels_per_acre = 0
-        self.__store = 0
-        self.__year = 0
-
-        # start initial round
-        self.process()
+        self.__store = 2800
+        self.__year = 1
+        self.__output = []
 
     @property
     def population(self):
@@ -61,12 +60,45 @@ class City:
     def year(self, value):
         self.__year = value
 
+    @property
+    def output(self):
+        return self.__output
+
+    @output.setter
+    def output(self, value):
+        self.__output = value
+
+    def inkrementOutput(self, value):
+        self.output.append(value)
+
+    def start(self):
+        # start initial round
+        self.process()
+
+    def printOutput(self):
+        for i in self.output:
+            print(i)
+
+    def printValues(self):
+        print("population: " + str(self.population))
+        print("acres: " + str(self.acres))
+        print("store: " + str(self.store))
+
     def process(self):
         """
             Wird aufgerufen wenn die Eingabe bestätigt wird
         """
-        
-        self.ask_to_buy_or_sell_land()
+
+
+        buyOrSell = self.ask_to_buy_or_sell_land()
+        self.calculateAcres(int(buyOrSell))
+        self.rats()
+        self.disease()
+
+        self.printOutput()
+
+        self.printValues()
+
 
     def calculatePopulation(self, value):
         """
@@ -80,11 +112,31 @@ class City:
         """
         self.store += value
 
+    def calculateAcres(self, value):
+        """
+            Berechnet die Anzahl der Acker
+        """
+        self.acres += value
+
+    def tradeValue(self):
+        """
+            Ermittelt den zufälligen tradeValue
+        """
+        self.trade_value = random.randint(17, 26)
+
     def disease(self):
         """
             Wird aufgerufen in der process() und berechnet Wahrscheinlichkeit einer
             Plage oder Seuche
         """
+        disease = random.randint(1, 10)
+        deaths = 0
+        if(disease == 10):
+            deaths = random.randint(1,(self.population/2))
+            self.calculatePopulation(-deaths)
+            self.inkrementOutput(str(deaths) + " have died because of a horrible disease!")
+
+        return deaths
 
 
 
@@ -93,15 +145,18 @@ class City:
             Wird in der process() aufgerufen und berechnet die Menge an Scheffeln,
             welche die Ratten pro Jahr fressen
         """
+        eaten = random.randint(0, 200)
+        self.calculateStore(-eaten)
+        self.inkrementOutput("Rats have eaten " + str(eaten) + " bushels")
+        return eaten
 
     def immigration(self):
         """
             Wird aufgerufen in der process() und berechnet den Bevölkerungszuwachs
-        :return:
         """
 
+
     def ask_to_buy_or_sell_land(self):
-        print("asdfsdf")
         """ Ask user how many bushels to spend buying land. """
         value = input("> How many acres will you buy or sell? ")
         return value
