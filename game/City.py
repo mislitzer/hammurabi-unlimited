@@ -88,8 +88,6 @@ class City:
         """
             Wird aufgerufen wenn die Eingabe bestätigt wird
         """
-
-
         buyOrSell = self.ask_to_buy_or_sell_land()
         self.calculateAcres(int(buyOrSell))
         self.rats()
@@ -131,7 +129,7 @@ class City:
         """
         disease = random.randint(1, 10)
         deaths = 0
-        if(disease == 10):
+        if(disease >= 10):
             deaths = random.randint(1,(self.population/2))
             self.calculatePopulation(-deaths)
             self.inkrementOutput(str(deaths) + " have died because of a horrible disease!")
