@@ -1,11 +1,11 @@
 import random
-
+from config import GameConstants as GAMECONST
 class City:
 
     def __init__(self):
         self.__population = 100
         self.__acres = 1000
-        self.__trade_value = random.randint(17, 26)
+        self.__trade_value = GAMECONST.TRADEVALUE_RAND
         self.__bushels_per_acre = 1
         self.__store = 2800
         self.__year = 1
@@ -157,14 +157,14 @@ class City:
         """
             Ermittelt den zufälligen tradeValue
         """
-        self.__trade_value = random.randint(17, 26)
+        self.__trade_value = GAMECONST.TRADEVALUE_RAND
 
     def disease(self):
         """
             Wird aufgerufen in der process() und berechnet Wahrscheinlichkeit einer
             Plage oder Seuche
         """
-        disease = random.randint(1, 10)
+        disease = GAMECONST.DISEASE_RAND
         deaths = 0
         if(disease >= 10):
             deaths= random.randint(1, int(self.population/2))
@@ -178,7 +178,7 @@ class City:
             Wird in der process() aufgerufen und berechnet die Menge an Scheffeln,
             welche die Ratten pro Jahr fressen
         """
-        eaten = random.randint(0, 200)
+        eaten = GAMECONST.RATS_RAND
         self.calculateStore(-eaten)
         self.inkrementOutput("Rats have eaten " + str(eaten) + " bushels")
         return eaten
