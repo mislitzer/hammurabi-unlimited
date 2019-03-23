@@ -11,6 +11,7 @@ class City:
         self.__year = 1
         self.__starve = 0
         self.__output = []
+        self.__gameOver = False
 
     @property
     def population(self):
@@ -76,6 +77,14 @@ class City:
     def output(self, value):
         self.__output = value
 
+    @property
+    def gameOver(self):
+        return self.__gameOver
+
+    @gameOver.setter
+    def gameOver(self, value):
+        self.__gameOver = value
+
     def inkrementOutput(self, value):
         self.output.append(value)
 
@@ -105,6 +114,7 @@ class City:
         self.calculateAcres(int(buyOrSell))
         self.rats()
         self.disease()
+        self.immigration()
         self.year += 1
 
     def process(self):
@@ -117,12 +127,13 @@ class City:
         buyOrSell = self.ask_to_buy_or_sell_land()
         feed = self.ask_to_feed_people()
         plant = self.ask_to_plant_bushel()
+        self.resetOutput()
         self.peopleFeed(feed)
         self.harvest(plant)
         self.calculateAcres(int(buyOrSell))
-        self.resetOutput()
         self.rats()
         self.disease()
+        self.immigration()
         self.year += 1
 
 
@@ -181,7 +192,8 @@ class City:
         if(self.__starve == 0):
             immigration = random.randint(1, ((self.population)/5))
             print(immigration)
-            self.calculatePopulation(immigration)
+            self.calculatePopulation(int(immigration))
+            self.inkrementOutput(str(immigration) + " People came to the city")
 
     def harvest(self, plant):
         self.calculateStore(plant*self.bushels_per_acre)
@@ -192,23 +204,29 @@ class City:
             if(int(foodPerPerson) == 19):
                 self.starve = random.randint(1, int(self.population)/5)
                 self.inkrementOutput("People starved: " + str(self.starve))
+                self.gameIsOver()
                 self.calculatePopulation(-int(self.starve))
             elif(int(foodPerPerson) ==18):
                 self.starve = random.randint(1, (int(self.population)/10)*3)
                 self.inkrementOutput("People starved: " + str(self.starve))
+                self.gameIsOver()
                 self.calculatePopulation(-int(self.starve))
             elif(int(foodPerPerson) ==17):
                 self.starve = random.randint(1, (int(self.population) / 10)*6)
                 self.inkrementOutput("People starved: " + str(self.starve))
+                self.gameIsOver()
                 self.calculatePopulation(-int(self.starve))
 
             elif(int(foodPerPerson) <=16):
                 self.starve = self.population
                 self.inkrementOutput("People starved: " + str(self.starve))
+                self.gameIsOver()
                 self.calculatePopulation(-int(self.starve))
 
         elif(foodPerPerson > 20):
             return
+
+
 
 
     def ask_to_buy_or_sell_land(self):
@@ -231,3 +249,10 @@ class City:
         storeChange = int(value)
         self.calculateStore(-storeChange)
         return value
+
+    def gameIsOver(self):
+        if(self.starve >= int((self.population/100)*45)):
+            print()
+            print("Game Over! ")
+            print(str(self.starve) + " People starved!!!")
+            self.gameOver = True

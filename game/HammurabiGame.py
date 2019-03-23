@@ -27,9 +27,11 @@ class HammurabiGame:
             Hauptmethode, welche beim Spielstart ausgeführt wird und bis Spielende durchläuft
 
         """
+
         self.city.start()
 
-        while True:
+
+        while self.city.gameOver == False:
             self.city.process()
 
         self.tk.deiconify()
