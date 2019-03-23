@@ -1,17 +1,21 @@
 import random
-
+from config import GameConstants as GAMECONST
 class City:
 
     def __init__(self):
         self.__population = 100
         self.__acres = 1000
-        self.__trade_value = random.randint(17, 26)
+        self.__trade_value = GAMECONST.TRADEVALUE_RAND
         self.__bushels_per_acre = 1
         self.__store = 2800
         self.__year = 1
         self.__starve = 0
         self.__output = []
         self.__gameOver = False
+
+        self.__buy_or_sell = 0
+        self.__feed = 0
+        self.__plant = 0
 
     @property
     def population(self):
@@ -85,6 +89,30 @@ class City:
     def gameOver(self, value):
         self.__gameOver = value
 
+    @property
+    def buy_or_sell(self):
+        return self.__buy_or_sell
+
+    @buy_or_sell.setter
+    def buy_or_sell(self, value):
+        self.__buy_or_sell = value
+
+    @property
+    def feed(self):
+        return self.__feed
+
+    @feed.setter
+    def feed(self, value):
+        self.__feed = value
+
+    @property
+    def plant(self):
+        return self.__plant
+
+    @plant.setter
+    def plant(self, value):
+        self.__plant = value
+
     def inkrementOutput(self, value):
         self.output.append(value)
 
@@ -95,46 +123,26 @@ class City:
         for i in self.output:
             print(i)
 
-    def printValues(self):
-        print("Year: " + str(self.year))
-        print("population: " + str(self.population))
-        print("acres: " + str(self.acres))
-        print("store: " + str(self.store))
-        print("bushels per acre:" + str(self.bushels_per_acre))
-        print("tradeValue: " + str(self.trade_value))
-
-    def start(self):
-        # start initial round
-        self.printValues()
-        buyOrSell = self.ask_to_buy_or_sell_land()
-        feed = self.ask_to_feed_people()
-        plant = self.ask_to_plant_bushel()
-        self.peopleFeed(feed)
-        self.harvest(plant)
-        self.calculateAcres(int(buyOrSell))
-        self.rats()
-        self.disease()
-        self.immigration()
-        self.year += 1
-
     def process(self):
         """
             Wird aufgerufen wenn die Eingabe bestätigt wird
         """
         self.tradeValue()
-        self.printValues()
-        self.printOutput()
-        buyOrSell = self.ask_to_buy_or_sell_land()
-        feed = self.ask_to_feed_people()
-        plant = self.ask_to_plant_bushel()
+
+        buy_or_sell = self.buy_or_sell
+        feed = self.feed
+        plant = self.plant
+
         self.resetOutput()
         self.peopleFeed(feed)
         self.harvest(plant)
-        self.calculateAcres(int(buyOrSell))
+        self.calculateAcres(int(buy_or_sell))
         self.rats()
         self.disease()
         self.immigration()
         self.year += 1
+
+        self.printOutput()
 
 
     def calculatePopulation(self, value):
@@ -159,14 +167,14 @@ class City:
         """
             Ermittelt den zufälligen tradeValue
         """
-        self.__trade_value = random.randint(17, 26)
+        self.__trade_value = GAMECONST.TRADEVALUE_RAND
 
     def disease(self):
         """
             Wird aufgerufen in der process() und berechnet Wahrscheinlichkeit einer
             Plage oder Seuche
         """
-        disease = random.randint(1, 10)
+        disease = GAMECONST.DISEASE_RAND
         deaths = 0
         if(disease >= 10):
             deaths= random.randint(1, int(self.population/2))
@@ -180,7 +188,7 @@ class City:
             Wird in der process() aufgerufen und berechnet die Menge an Scheffeln,
             welche die Ratten pro Jahr fressen
         """
-        eaten = random.randint(0, 200)
+        eaten = GAMECONST.RATS_RAND
         self.calculateStore(-eaten)
         self.inkrementOutput("Rats have eaten " + str(eaten) + " bushels")
         return eaten
