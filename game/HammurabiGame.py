@@ -9,6 +9,8 @@ class HammurabiGame:
         """
         city_instance = city.City()
         city_instance.start()
+        while True:
+            city_instance.process()
 
 game = HammurabiGame()
 game.main()
