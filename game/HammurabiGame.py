@@ -1,4 +1,8 @@
+from .City import City
 class HammurabiGame:
+
+    city = City()
+
 
     def main(self):
         """
