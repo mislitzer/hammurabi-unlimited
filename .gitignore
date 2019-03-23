@@ -1,1 +1,4 @@
-game/__pycache__
+.vscode
+test.py
+*/__pycache__
+*.py[co]
