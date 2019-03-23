@@ -6,7 +6,7 @@ class City:
         self.__population = 100
         self.__acres = 1000
         self.__trade_value = GAMECONST.TRADEVALUE_RAND
-        self.__bushels_per_acre = 1
+        self.__bushels_per_acre = 8
         self.__store = 2800
         self.__year = 1
         self.__starve = 0
@@ -107,6 +107,7 @@ class City:
         self.disease()
         self.year += 1
 
+
     def process(self):
         """
             Wird aufgerufen wenn die Eingabe bestätigt wird
@@ -124,7 +125,13 @@ class City:
         self.rats()
         self.disease()
         self.year += 1
+        self.calc_bushels_per_acre(feed)
 
+    def calc_bushels_per_acre(self, bushel):
+        foodPerPerson = int(bushel) / int(self.population)
+        bpa = 8-abs(foodPerPerson-20)
+        self.bushels_per_acre += bpa
+        return
 
     def calculatePopulation(self, value):
         """
@@ -184,7 +191,7 @@ class City:
             self.calculatePopulation(immigration)
 
     def harvest(self, plant):
-        self.calculateStore(plant*self.bushels_per_acre)
+        self.calculateStore(plant*self.calc_bushels_per_acre())
 
     def peopleFeed(self, bushel):
         foodPerPerson = int(bushel)/int(self.population)
