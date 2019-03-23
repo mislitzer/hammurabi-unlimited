@@ -30,7 +30,7 @@ class View():
 
         self.feed_people_label = tk.Label(self.master, text=GUICONSTANTS.GAME_LABEL_FEED_PEOPLE)
         self.feed_people_label.pack()
-        self.feed_people_slider = tk.Scale(self.master, from_=0, to=100, orient="horizontal")
+        self.feed_people_slider = tk.Scale(self.master, from_=0, to=2000, orient="horizontal")
         self.feed_people_slider.pack()
 
         self.store_label = tk.Label(self.master, text=GUICONSTANTS.GAME_LABEL_STORE)
@@ -42,7 +42,9 @@ class View():
         self.play_btn.pack()
 
     def update_output(self, model):
-        print("printed output", model.store)
-        print("print", model.population)
-
+        self.output_panel.year.config(text=GUICONSTANTS.GAME_YEAR + str(model.year))
+        self.output_panel.population.config(text=GUICONSTANTS.GAME_POPULATION + str(model.population))
+        self.output_panel.acres.config(text=GUICONSTANTS.GAME_ACRES + str(model.acres))
+        self.output_panel.store.config(text=GUICONSTANTS.GAME_BUSHELS_IN_STORE + str(model.store))
+        self.output_panel.trade_value.config(text=GUICONSTANTS.GAME_TRADE_VALUE + str(model.store))
         

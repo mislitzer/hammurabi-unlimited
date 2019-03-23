@@ -12,6 +12,10 @@ class City:
         self.__starve = 0
         self.__output = []
 
+        self.__buy_or_sell = 0
+        self.__feed = 0
+        self.__plant = 0
+
     @property
     def population(self):
         return self.__population
@@ -76,6 +80,30 @@ class City:
     def output(self, value):
         self.__output = value
 
+    @property
+    def buy_or_sell(self):
+        return self.__buy_or_sell
+
+    @buy_or_sell.setter
+    def buy_or_sell(self, value):
+        self.__buy_or_sell = value
+
+    @property
+    def feed(self):
+        return self.__feed
+
+    @feed.setter
+    def feed(self, value):
+        self.__feed = value
+
+    @property
+    def plant(self):
+        return self.__plant
+
+    @plant.setter
+    def plant(self, value):
+        self.__plant = value
+
     def inkrementOutput(self, value):
         self.output.append(value)
 
@@ -86,44 +114,25 @@ class City:
         for i in self.output:
             print(i)
 
-    def printValues(self):
-        print("Year: " + str(self.year))
-        print("population: " + str(self.population))
-        print("acres: " + str(self.acres))
-        print("store: " + str(self.store))
-        print("bushels per acre:" + str(self.bushels_per_acre))
-        print("tradeValue: " + str(self.trade_value))
-
-    def start(self):
-        # start initial round
-        self.printValues()
-        buyOrSell = self.ask_to_buy_or_sell_land()
-        feed = self.ask_to_feed_people()
-        plant = self.ask_to_plant_bushel()
-        self.peopleFeed(feed)
-        self.harvest(plant)
-        self.calculateAcres(int(buyOrSell))
-        self.rats()
-        self.disease()
-        self.year += 1
-
     def process(self):
         """
             Wird aufgerufen wenn die Eingabe bestätigt wird
         """
         self.tradeValue()
-        self.printValues()
-        self.printOutput()
-        buyOrSell = self.ask_to_buy_or_sell_land()
-        feed = self.ask_to_feed_people()
-        plant = self.ask_to_plant_bushel()
+
+        buy_or_sell = self.buy_or_sell
+        feed = self.feed
+        plant = self.plant
+
         self.peopleFeed(feed)
         self.harvest(plant)
-        self.calculateAcres(int(buyOrSell))
+        self.calculateAcres(int(buy_or_sell))
         self.resetOutput()
         self.rats()
         self.disease()
         self.year += 1
+
+        self.printOutput()
 
 
     def calculatePopulation(self, value):

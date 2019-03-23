@@ -11,9 +11,12 @@ class OutputPanel():
 
         self.population = tk.Label(self.root)
         self.population.pack()
+
         self.acres = tk.Label(self.root)
         self.acres.pack()
+
         self.store = tk.Label(self.root)
         self.store.pack()
+        
         self.trade_value = tk.Label(self.root)
         self.trade_value.pack
