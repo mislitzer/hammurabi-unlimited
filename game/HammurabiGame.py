@@ -28,6 +28,10 @@ class HammurabiGame:
 
         """
         self.city.start()
+
+        while True:
+            self.city.process()
+
         self.tk.deiconify()
         self.tk.mainloop()
 
