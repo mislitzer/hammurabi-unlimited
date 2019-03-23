@@ -234,9 +234,6 @@ class City:
         elif(foodPerPerson > 20):
             return
 
-
-
-
     def ask_to_buy_or_sell_land(self):
         """ Ask user how many bushels to spend buying land. """
         value = input("> How many acres will you buy or sell? ")
