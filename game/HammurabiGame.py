@@ -1,7 +1,8 @@
-from .City import City
+import City as city
+
 class HammurabiGame:
 
-    city = City()
+    city = city.City()
 
 
     def main(self):
@@ -9,3 +10,7 @@ class HammurabiGame:
             Hauptmethode, welche beim Spielstart ausgeführt wird und bis Spielende durchläuft
 
         """
+        city_instance = city.City()
+
+game = HammurabiGame()
+game.main()
