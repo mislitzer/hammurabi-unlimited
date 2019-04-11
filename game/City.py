@@ -135,19 +135,18 @@ class City:
 
         self.resetOutput()
         self.peopleFeed(feed)
+        self.calc_bushels_per_acre(feed)
         self.harvest(plant)
         self.calculateAcres(int(buy_or_sell))
         self.rats()
         self.disease()
         self.immigration()
         self.year += 1
-        self.calc_bushels_per_acre(feed)
 
     def calc_bushels_per_acre(self, bushel):
         foodPerPerson = int(bushel) / int(self.population)
         bpa = 8-abs(foodPerPerson-20)
         self.bushels_per_acre += bpa
-        return
 
     def calculatePopulation(self, value):
         """
@@ -208,7 +207,7 @@ class City:
             self.inkrementOutput(str(immigration) + " People came to the city")
 
     def harvest(self, plant):
-        self.calculateStore(plant*self.calc_bushels_per_acre())
+        self.calculateStore(plant*self.bushels_per_acre)
 
     def peopleFeed(self, bushel):
         foodPerPerson = int(bushel)/int(self.population)
