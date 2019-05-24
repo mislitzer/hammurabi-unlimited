@@ -19,6 +19,7 @@ class View():
         self.view_bushels_label = None
         self.play_btn = None
         self.replay_btn = None
+        self.winning_label_label = None
 
         self.additional_output = []
         self.view_bushels_value = self.controller.city.store
@@ -68,6 +69,7 @@ class View():
         self.output_panel.acres.destroy()
         self.output_panel.store.destroy()
         self.output_panel.trade_value.destroy()
+        self.winning_label_label.destroy()
         self.replay_btn.destroy()
 
     def destroy_view_output_components(self):
@@ -79,6 +81,10 @@ class View():
         self.store_slider.destroy()
         self.view_bushels_label.destroy()
         self.play_btn.destroy()
+
+        if (self.controller.city.year >= 10):
+            self.winning_label_label = tk.Label(self.master, text=GUICONSTANTS.GAME_LABEL_WIN)
+            self.winning_label_label.pack()
 
         self.replay_btn = tk.Button(self.master, text="Try Again!", command = self.controller.start_new_game)
         self.replay_btn.pack()

@@ -36,6 +36,10 @@ class HammurabiGame:
         if (self.city.gameOver):
             self.view.destroy_view_output_components()
 
+            # game over state plot
+            import ResultChart as rc
+            rc.ResultChart(self.game_state)
+
         self.city.buy_or_sell = self.view.acre_amount_slider.get()
         self.city.feed = self.view.feed_people_slider.get()
         self.city.plant = self.view.store_slider.get()
