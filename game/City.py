@@ -6,7 +6,7 @@ class City:
         self.__population = 100
         self.__acres = 1000
         self.__trade_value = GAMECONST.TRADEVALUE_RAND
-        self.__bushels_per_acre = 1
+        self.__bushels_per_acre = 8
         self.__store = 2800
         self.__year = 1
         self.__starve = 0
@@ -131,6 +131,7 @@ class City:
 
         self.resetOutput()
         self.peopleFeed(feed)
+        self.calc_bushels_per_acre(feed)
         self.harvest(plant)
         self.calculateAcres(int(buy_or_sell))
         self.rats()
@@ -138,6 +139,14 @@ class City:
         self.immigration()
         self.year += 1
 
+    def calc_bushels_per_acre(self, bushel):
+
+        if(self.population != 0):
+            foodPerPerson = int(bushel) / int(self.population)
+            bpa = 8-abs(foodPerPerson-20)
+            self.bushels_per_acre += bpa
+        else:
+            return 0
 
     def calculatePopulation(self, value):
         """
@@ -226,9 +235,6 @@ class City:
 
         elif(foodPerPerson > 20):
             return
-
-
-
 
     def ask_to_buy_or_sell_land(self):
         """ Ask user how many bushels to spend buying land. """

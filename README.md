@@ -3,6 +3,7 @@ By Tobias Heiss, Iacob Cosmin, Franz Innerbichler & Martin Islitzer
 
 ## Initial Sprint
 ### Fotodocumentation
+#### Initial Sprint
 ![Sprint Initial - Start](./sprintfiles/sprint_0/Sprint0-Start.jpg "Sprint Initial - Start")
 ![Sprint Initial - End](./sprintfiles/sprint_0/Sprint0-End.jpg "Sprint Initial - End")
 ![Sprint Initial - Flow Chart](./sprintfiles/sprint_0/Prototyp-Ablaufdiagramm.jpg "Sprint Initial - Flow Chart")
@@ -17,3 +18,13 @@ By Tobias Heiss, Iacob Cosmin, Franz Innerbichler & Martin Islitzer
 ### Fotodocumentation
 ![Sprint 2 - Start](./sprintfiles/sprint_2/Sprint2-Start.jpg "Sprint 2 - Start")
 ![Sprint 2 - End](./sprintfiles/sprint_2/Sprint2-End.jpg "Sprint 2 - End")
+
+## Sprint 3
+### Fotodocumentation
+![Sprint 3 - Start](./sprintfiles/sprint_3/Sprint3-Start.jpg "Sprint 3 - Start")
+![Sprint 3 - End](./sprintfiles/sprint_3/Sprint3-End.jpg "Sprint 3 - End")
+
+## Sprint 4
+### Fotodocumentation
+![Sprint 4 - Start](./sprintfiles/sprint_4/Sprint4-Start.jpg "Sprint 4 - Start")
+![Sprint 4 - End](./sprintfiles/sprint_4/Sprint4-End.jpg "Sprint 4 - End")

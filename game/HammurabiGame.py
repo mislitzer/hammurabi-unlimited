@@ -3,8 +3,8 @@ import View as view
 import tkinter as tk
 from config import GuiConstants as GUICONSTANTS
 
-class HammurabiGame:
 
+class HammurabiGame:
     def __init__(self):
         self.tk = tk.Tk()
         self.city = city.City()
@@ -40,15 +40,14 @@ class HammurabiGame:
     def run(self):
         """
             Hauptmethode, welche beim Spielstart ausgeführt wird und bis Spielende durchläuft
-
         """
-
         self.tk.deiconify()
         self.tk.mainloop()
 
-    def fill_view_output(self): 
+    def fill_view_output(self):
         self.view.update_output(self.city)
         self.view.additional_output = self.city.output
+
 
 game = HammurabiGame()
 game.run()
