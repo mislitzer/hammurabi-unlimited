@@ -158,6 +158,7 @@ class City:
         """
             Wird aufgerufen, wenn die Scheffelmenge verändert wird
         """
+
         self.store += int(value)
 
     def calculateAcres(self, value):

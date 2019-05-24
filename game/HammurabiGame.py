@@ -25,17 +25,18 @@ class HammurabiGame:
 
         self.fill_view_output()
 
+        print(self.city.gameOver)
+
     def trigger_slider_change(self, acres):
         buy_or_sell = self.view.acre_amount_slider.get()
         feed = self.view.feed_people_slider.get()
         plant = self.view.store_slider.get()
 
-        print(buy_or_sell)
-        print(feed)
-        print(plant)
+        new_value = int(buy_or_sell) * self.city.trade_value
+        new_value += feed
+        new_value += plant
 
-        new_value = self.view.view_bushels_value - (int(acres) * self.city.trade_value)
-        self.view.update_view_bushels(new_value)
+        self.view.update_view_bushels(self.view.view_bushels_value - new_value)
 
     def run(self):
         """

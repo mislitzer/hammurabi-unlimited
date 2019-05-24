@@ -20,24 +20,24 @@ class View():
         self.play_btn = None
 
         self.additional_output = []
-        self.view_bushels_value = 0
+        self.view_bushels_value = self.controller.city.store
 
         self.create_gui_elements()
 
     def create_gui_elements(self):
         self.acre_amount_label = tk.Label(self.master, text=GUICONSTANTS.GAME_LABEL_ACRES)
         self.acre_amount_label.pack()
-        self.acre_amount_slider = tk.Scale(self.master, from_=-100, to=100, orient="horizontal", command=self.controller.trigger_slider_change)
+        self.acre_amount_slider = tk.Scale(self.master, from_=-1000, to=1000, length=700, orient="horizontal", command=self.controller.trigger_slider_change)
         self.acre_amount_slider.pack()
 
         self.feed_people_label = tk.Label(self.master, text=GUICONSTANTS.GAME_LABEL_FEED_PEOPLE)
         self.feed_people_label.pack()
-        self.feed_people_slider = tk.Scale(self.master, from_=0, to=2000, orient="horizontal", command=self.controller.trigger_slider_change)
+        self.feed_people_slider = tk.Scale(self.master, from_=0, to=2000, length=700, orient="horizontal", command=self.controller.trigger_slider_change)
         self.feed_people_slider.pack()
 
         self.store_label = tk.Label(self.master, text=GUICONSTANTS.GAME_LABEL_STORE)
         self.store_label.pack()
-        self.store_slider = tk.Scale(self.master, from_=0, to=100, orient="horizontal", command=self.controller.trigger_slider_change)
+        self.store_slider = tk.Scale(self.master, from_=0, to=100, length=700, orient="horizontal", command=self.controller.trigger_slider_change)
         self.store_slider.pack()
 
         self.view_bushels_label = tk.Label(self.master, text=str(self.view_bushels_value) + GUICONSTANTS.GAME_LABEL_VIEW_BUSHELS, fg="green")
@@ -47,8 +47,7 @@ class View():
         self.play_btn.pack()
 
     def update_view_bushels(self, value):
-        self.view_bushels_value = value
-        self.view_bushels_label.config(text=str(self.view_bushels_value) + GUICONSTANTS.GAME_LABEL_VIEW_BUSHELS)
+        self.view_bushels_label.config(text=str(value) + GUICONSTANTS.GAME_LABEL_VIEW_BUSHELS)
 
     def update_output(self, model):
         self.output_panel.clear_additional_labels()
