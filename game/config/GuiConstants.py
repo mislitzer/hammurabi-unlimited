@@ -1,5 +1,5 @@
 GAME_TITLE = "Hammurabi Unlimited Game"
-GAME_VIEW_WIDTH = 1400
+GAME_VIEW_WIDTH = 800
 GAME_VIEW_HEIGHT = 600
 
 GAME_LABEL_ACRES = "How many acres do you wish to buy or sell?"
@@ -11,3 +11,4 @@ GAME_POPULATION = "Population: "
 GAME_ACRES = "Acres: "
 GAME_BUSHELS_IN_STORE = "Bushels in Store: "
 GAME_TRADE_VALUE = "Trade Value: "
+GAME_LABEL_VIEW_BUSHELS = " bushels remaining"

@@ -119,10 +119,6 @@ class City:
     def resetOutput(self):
         self.output.clear()
 
-    def printOutput(self):
-        for i in self.output:
-            print(i)
-
     def process(self):
         """
             Wird aufgerufen wenn die Eingabe bestätigt wird
@@ -141,8 +137,6 @@ class City:
         self.disease()
         self.immigration()
         self.year += 1
-
-        self.printOutput()
 
 
     def calculatePopulation(self, value):
@@ -199,7 +193,6 @@ class City:
         """
         if(self.__starve == 0):
             immigration = random.randint(1, ((self.population)/5))
-            print(immigration)
             self.calculatePopulation(int(immigration))
             self.inkrementOutput(str(immigration) + " People came to the city")
 
