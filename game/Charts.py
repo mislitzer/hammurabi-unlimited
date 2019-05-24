@@ -18,7 +18,7 @@ a = f.add_subplot(111)
 
 
 def animate(i):
-    pullData = open("sampleData.txt", "r").read()
+    pullData = open("./sampleData.txt", "r").read()
     dataList = pullData.split('\n')
     xList = []
     yList = []

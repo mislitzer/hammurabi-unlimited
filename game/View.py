@@ -62,4 +62,8 @@ class View():
         for output in self.additional_output:
             self.output_panel.add_additional_label(output)
 
+    def destroy_view_output_components(self):
+        self.acre_amount_label.destroy()
+        self.acre_amount_slider.destroy()
+
         

@@ -6,16 +6,15 @@ from config import GuiConstants as GUICONSTANTS
 
 class HammurabiGame:
     def __init__(self):
-        self.tk = tk.Tk()
-        self.city = city.City()
         self.setUp()
-        self.view = view.View(self.tk, self)
-
-        self.fill_view_output()
 
     def setUp(self):
+        self.tk = tk.Tk()
+        self.city = city.City()
         self.tk.geometry(str(GUICONSTANTS.GAME_VIEW_WIDTH) + "x" + str(GUICONSTANTS.GAME_VIEW_HEIGHT))
         self.tk.title(GUICONSTANTS.GAME_TITLE)
+        self.view = view.View(self.tk, self)
+        self.fill_view_output()
 
     def trigger_play(self):
         self.city.buy_or_sell = self.view.acre_amount_slider.get()
@@ -23,9 +22,12 @@ class HammurabiGame:
         self.city.plant = self.view.store_slider.get()
         self.city.process()
 
-        self.fill_view_output()
+        if (self.city.gameOver):
+            print("GAME OVER :)")
+            self.view.destroy_view_output_components()
+        else:
+            self.fill_view_output()
 
-        print(self.city.gameOver)
 
     def trigger_slider_change(self, acres):
         buy_or_sell = self.view.acre_amount_slider.get()
