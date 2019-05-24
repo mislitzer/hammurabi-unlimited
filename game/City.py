@@ -210,20 +210,21 @@ class City:
         self.calculateStore(plant*self.bushels_per_acre)
 
     def peopleFeed(self, bushel):
+        self.calculateStore(-bushel)
         foodPerPerson = int(bushel)/int(self.population)
         if(foodPerPerson < 20):
             if(int(foodPerPerson) == 19):
-                self.starve = random.randint(1, int(self.population)/5)
+                self.starve = random.randint(1, int(self.population/5))
                 self.inkrementOutput("People starved: " + str(self.starve))
                 self.gameIsOver()
                 self.calculatePopulation(-int(self.starve))
             elif(int(foodPerPerson) ==18):
-                self.starve = random.randint(1, (int(self.population)/10)*3)
+                self.starve = random.randint(1, int((self.population/10)*3))
                 self.inkrementOutput("People starved: " + str(self.starve))
                 self.gameIsOver()
                 self.calculatePopulation(-int(self.starve))
             elif(int(foodPerPerson) ==17):
-                self.starve = random.randint(1, (int(self.population) / 10)*6)
+                self.starve = random.randint(1, int((self.population / 10)*6))
                 self.inkrementOutput("People starved: " + str(self.starve))
                 self.gameIsOver()
                 self.calculatePopulation(-int(self.starve))
@@ -233,7 +234,6 @@ class City:
                 self.inkrementOutput("People starved: " + str(self.starve))
                 self.gameIsOver()
                 self.calculatePopulation(-int(self.starve))
-
         elif(foodPerPerson > 20):
             return
 
