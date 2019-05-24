@@ -144,9 +144,13 @@ class City:
         self.year += 1
 
     def calc_bushels_per_acre(self, bushel):
-        foodPerPerson = int(bushel) / int(self.population)
-        bpa = 8-abs(foodPerPerson-20)
-        self.bushels_per_acre += bpa
+
+        if(self.population != 0):
+            foodPerPerson = int(bushel) / int(self.population)
+            bpa = 8-abs(foodPerPerson-20)
+            self.bushels_per_acre += bpa
+        else:
+            return 0
 
     def calculatePopulation(self, value):
         """
