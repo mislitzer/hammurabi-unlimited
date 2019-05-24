@@ -2,7 +2,7 @@ import random
 from config import GameConstants as GAMECONST
 class City:
 
-    def __init__(self):
+    def __init__(self, controller):
         self.__population = 100
         self.__acres = 1000
         self.__trade_value = GAMECONST.TRADEVALUE_RAND
@@ -16,6 +16,7 @@ class City:
         self.__buy_or_sell = 0
         self.__feed = 0
         self.__plant = 0
+        self.__controller = controller
 
     @property
     def population(self):
@@ -113,6 +114,14 @@ class City:
     def plant(self, value):
         self.__plant = value
 
+    @property
+    def controller(self):
+        return self.__controller
+
+    @controller.setter
+    def controller(self, value):
+        self.__controller = value
+
     def inkrementOutput(self, value):
         self.output.append(value)
 
@@ -202,7 +211,7 @@ class City:
             Wird aufgerufen in der process() und berechnet den Bevölkerungszuwachs
         """
         if(self.__starve == 0):
-            immigration = random.randint(1, ((self.population)/5))
+            immigration = random.randint(1, int((self.population)/5))
             self.calculatePopulation(int(immigration))
             self.inkrementOutput(str(immigration) + " People came to the city")
 
@@ -260,7 +269,7 @@ class City:
 
     def gameIsOver(self):
         if(self.starve >= int((self.population/100)*45)):
-            print()
-            print("Game Over! ")
-            print(str(self.starve) + " People starved!!!")
+            self.inkrementOutput("Game Over!")
+            self.inkrementOutput(str(self.starve) + " People starved!!!")
             self.gameOver = True
+            self.controller.trigger_play()

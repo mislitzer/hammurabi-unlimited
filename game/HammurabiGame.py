@@ -1,33 +1,52 @@
 import City as city
 import View as view
+import GameResult as gs
 import tkinter as tk
 from config import GuiConstants as GUICONSTANTS
 
 
 class HammurabiGame:
     def __init__(self):
-        self.setUp()
-
-    def setUp(self):
         self.tk = tk.Tk()
-        self.city = city.City()
+        self.setup(False)
+
+    def setup(self, reboot = False):
+        if (reboot):
+            self.tk.destroy()
+            self.tk = tk.Tk()
+
+        self.game_state = []
+        self.city = city.City(self)
+
+        self.write_game_state()
+
         self.tk.geometry(str(GUICONSTANTS.GAME_VIEW_WIDTH) + "x" + str(GUICONSTANTS.GAME_VIEW_HEIGHT))
         self.tk.title(GUICONSTANTS.GAME_TITLE)
+
         self.view = view.View(self.tk, self)
         self.fill_view_output()
+        
+    def start_new_game(self):
+        self.setup(True)
+
+    def write_game_state(self):
+        self.game_state.append(gs.GameResult(self.city.year, self.city.population, self.city.acres, self.city.store))
 
     def trigger_play(self):
+        if (self.city.gameOver):
+            self.view.destroy_view_output_components()
+
         self.city.buy_or_sell = self.view.acre_amount_slider.get()
         self.city.feed = self.view.feed_people_slider.get()
         self.city.plant = self.view.store_slider.get()
         self.city.process()
 
-        if (self.city.gameOver):
-            print("GAME OVER :)")
-            self.view.destroy_view_output_components()
-        else:
+        if (self.city.gameOver == False):
+            self.write_game_state()
             self.fill_view_output()
 
+        if (self.city.store < 0):
+            self.city.gameOver = True
 
     def trigger_slider_change(self, acres):
         buy_or_sell = self.view.acre_amount_slider.get()

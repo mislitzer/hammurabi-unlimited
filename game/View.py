@@ -18,6 +18,7 @@ class View():
         self.store_slider = None
         self.view_bushels_label = None
         self.play_btn = None
+        self.replay_btn = None
 
         self.additional_output = []
         self.view_bushels_value = self.controller.city.store
@@ -51,7 +52,6 @@ class View():
 
     def update_output(self, model):
         self.output_panel.clear_additional_labels()
-
         self.update_view_bushels(model.store)
         self.output_panel.year.config(text=GUICONSTANTS.GAME_YEAR + str(model.year))
         self.output_panel.population.config(text=GUICONSTANTS.GAME_POPULATION + str(model.population))
@@ -62,8 +62,25 @@ class View():
         for output in self.additional_output:
             self.output_panel.add_additional_label(output)
 
+    def destroy_label_components(self):
+        self.output_panel.year.destroy()
+        self.output_panel.population.destroy()
+        self.output_panel.acres.destroy()
+        self.output_panel.store.destroy()
+        self.output_panel.trade_value.destroy()
+        self.replay_btn.destroy()
+
     def destroy_view_output_components(self):
         self.acre_amount_label.destroy()
         self.acre_amount_slider.destroy()
+        self.feed_people_label.destroy()
+        self.feed_people_slider.destroy()
+        self.store_label.destroy()
+        self.store_slider.destroy()
+        self.view_bushels_label.destroy()
+        self.play_btn.destroy()
+
+        self.replay_btn = tk.Button(self.master, text="Try Again!", command = self.controller.start_new_game)
+        self.replay_btn.pack()
 
         
