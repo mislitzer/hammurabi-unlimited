@@ -139,6 +139,7 @@ class City:
         plant = self.plant
 
         self.resetOutput()
+        self.buy_or_sell_land(int(buy_or_sell))
         self.peopleFeed(feed)
         self.calc_bushels_per_acre(feed)
         self.harvest(plant)
@@ -147,6 +148,7 @@ class City:
         self.disease()
         self.immigration()
         self.year += 1
+        self.gameIsOver()
 
     def calc_bushels_per_acre(self, bushel):
 
@@ -174,6 +176,7 @@ class City:
         """
             Berechnet die Anzahl der Acker
         """
+
         self.acres += value
 
     def tradeValue(self):
@@ -213,12 +216,12 @@ class City:
         if(self.__starve == 0):
             immigration = random.randint(1, int((self.population)/5))
             self.calculatePopulation(int(immigration))
-            self.inkrementOutput(str(immigration) + " People came to the city")
 
     def harvest(self, plant):
         self.calculateStore(plant*self.bushels_per_acre)
 
     def peopleFeed(self, bushel):
+        self.starve = 0
         self.calculateStore(-bushel)
         foodPerPerson = int(bushel)/int(self.population)
         if(foodPerPerson < 20):
@@ -246,12 +249,9 @@ class City:
         elif(foodPerPerson > 20):
             return
 
-    def ask_to_buy_or_sell_land(self):
-        """ Ask user how many bushels to spend buying land. """
-        value = input("> How many acres will you buy or sell? ")
+    def buy_or_sell_land(self, value):
         storeChange = int(value)*int(self.trade_value)
         self.calculateStore(-int(storeChange))
-        return value
 
     def ask_to_feed_people(self):
         """ Ask user how many bushels to feed to people. """
@@ -269,7 +269,13 @@ class City:
 
     def gameIsOver(self):
         if(self.starve >= int((self.population/100)*45)):
-            self.inkrementOutput("Game Over!")
-            self.inkrementOutput(str(self.starve) + " People starved!!!")
+            self.gameOver = True
+            self.controller.trigger_play()
+
+        if(self.population <= 0):
+            self.gameOver = True
+            self.controller.trigger_play()
+
+        if(self.year >= 10):
             self.gameOver = True
             self.controller.trigger_play()
